@@ -28,22 +28,49 @@
   <!-- CUSTOM TITLEBAR -->
   <div id="titlebar"
     class="titlebar fixed top-0 left-0 right-0 h-8 z-50 flex items-center
-           justify-between px-4 bg-studio-card border-b border-studio-border select-none">
-    <div class="flex items-center gap-2">
+           justify-between bg-studio-card border-b border-studio-border select-none">
+
+    <!-- Left: Logo + Title -->
+    <div class="flex items-center gap-2 px-3">
       <img id="titlebar-logo" src="./assets/images/icon.png"
-           alt="Studio Dalang Pelo" class="w-4 h-4 object-contain" />
+           alt="Studio Dalang Pelo" class="w-4 h-4 object-contain flex-shrink-0" />
       <span class="text-xs text-studio-muted font-medium">Studio Dalang Pelo</span>
     </div>
-    <div class="window-buttons flex gap-1">
-      <button id="window-minimize"
-        class="window-button w-8 h-6 rounded text-studio-muted hover:bg-studio-border
-               hover:text-white text-xs transition-colors">─</button>
-      <button id="window-maximize"
-        class="window-button w-8 h-6 rounded text-studio-muted hover:bg-studio-border
-               hover:text-white text-xs transition-colors">□</button>
-      <button id="window-close"
-        class="window-button w-8 h-6 rounded text-studio-muted hover:bg-red-600
-               hover:text-white text-xs transition-colors">✕</button>
+
+    <!-- Right: Window Controls -->
+    <div class="window-buttons flex h-full">
+
+      <!-- Minimize -->
+      <button id="window-minimize" class="window-button group relative flex items-center justify-center w-11 h-full
+               text-studio-muted hover:bg-white/10 hover:text-white transition-colors duration-150">
+        <svg width="10" height="1" viewBox="0 0 10 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="10" height="1" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- Maximize / Restore -->
+      <button id="window-maximize" class="window-button group relative flex items-center justify-center w-11 h-full
+               text-studio-muted hover:bg-white/10 hover:text-white transition-colors duration-150">
+        <!-- Icon Maximize (default) -->
+        <svg id="icon-maximize" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.5" y="0.5" width="9" height="9" stroke="currentColor" stroke-width="1" fill="none"/>
+        </svg>
+        <!-- Icon Restore (saat maximized) -->
+        <svg id="icon-restore" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="hidden">
+          <rect x="2" y="0" width="8" height="8" stroke="currentColor" stroke-width="1" fill="none"/>
+          <rect x="0" y="2" width="8" height="8" stroke="currentColor" stroke-width="1" fill="none" style="fill: var(--color-card)"/>
+        </svg>
+      </button>
+
+      <!-- Close -->
+      <button id="window-close" class="window-button group relative flex items-center justify-center w-11 h-full
+               text-studio-muted hover:bg-red-600 hover:text-white transition-colors duration-150">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="0" x2="10" y2="10" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="10" y1="0" x2="0" y2="10" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </button>
+
     </div>
   </div>
 

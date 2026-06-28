@@ -18,10 +18,34 @@
   -webkit-app-region: no-drag;
 }
 
-/* Tombol maximize icon berubah saat window dimaksimalkan */
-#window-maximize::before { content: '□'; }
-body.is-maximized #window-maximize::before { content: '❐'; }
-#window-maximize { font-size: 11px; }
+/* Window button base */
+.window-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: #6B7280;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  -webkit-app-region: no-drag;
+}
+.window-button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+#window-close:hover {
+  background-color: #E81123;
+  color: #ffffff;
+}
+#window-close:active {
+  background-color: #C42B1C;
+}
+.window-button:active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
 
 /* ─── PROGRESS BARS ─────────────────────── */
 .progress-fill,
@@ -87,13 +111,8 @@ input:focus, select:focus, textarea:focus {
 .badge-done      { background:#10B98120; color:#34D399; border:1px solid #10B98140; }
 
 /* ─── CARD HOVER ─────────────────────────── */
-.studio-card-hover {
-  transition: border-color 0.2s, transform 0.2s;
-}
-.studio-card-hover:hover {
-  border-color: #7C3AED;
-  transform: translateY(-2px);
-}
+.studio-card-hover { transition: border-color 0.2s, transform 0.2s; }
+.studio-card-hover:hover { border-color: #7C3AED; transform: translateY(-2px); }
 
 /* ─── SKELETON LOADING ───────────────────── */
 .skeleton {

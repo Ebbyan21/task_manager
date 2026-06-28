@@ -5,24 +5,19 @@ import { renderSidebar } from './components/Sidebar.js';
 import { renderNavbar }  from './components/Navbar.js';
 import { initNotification } from './components/Notification.js';
 
-// Import initAuthDependencies dari login.js
 import { initAuthDependencies, showAuthLayer, showFirstLoginModal, logout } from './views/auth/login.js';
 
 export { logout };
 
-// ─── GLOBAL STATE ────────────────────────────
 export const AppState = {
   user:    null,
   profile: null,
   role:    null,
 };
 
-// ─── REALTIME SUBSCRIPTION TRACKER ───────────
 let _realtimeChannel = null;
 export const getRealtimeChannel = () => _realtimeChannel;
 
-// ─── DEPENDENCY INJECTION KE LOGIN.JS ────────
-// LAKUKAN INI SEBELUM YANG LAIN JALAN BIAR GA ERROR
 initAuthDependencies({
   AppState,
   enterApp,
@@ -59,17 +54,26 @@ function initWindowControls() {
   const maximizeBtn  = document.getElementById('window-maximize');
   const closeBtn     = document.getElementById('window-close');
   const titlebarLogo = document.getElementById('titlebar-logo');
+  const iconMaximize = document.getElementById('icon-maximize');
+  const iconRestore  = document.getElementById('icon-restore');
 
   if (minimizeBtn) minimizeBtn.addEventListener('click', () => window.electronAPI.window.minimize());
   if (maximizeBtn) maximizeBtn.addEventListener('click', () => window.electronAPI.window.maximize());
   if (closeBtn)    closeBtn.addEventListener('click',    () => window.electronAPI.window.close());
 
-  // Sync icon maximize saat window berubah state
+  // Toggle icon maximize/restore
+  function setMaximizeIcon(isMaximized) {
+    if (!iconMaximize || !iconRestore) return;
+    iconMaximize.classList.toggle('hidden', isMaximized);
+    iconRestore.classList.toggle('hidden', !isMaximized);
+  }
+
   window.electronAPI.window.isMaximized().then(isMax => {
-    document.body.classList.toggle('is-maximized', isMax);
+    setMaximizeIcon(isMax);
   });
+
   window.electronAPI.window.onMaximized((isMax) => {
-    document.body.classList.toggle('is-maximized', isMax);
+    setMaximizeIcon(isMax);
   });
 
   if (titlebarLogo) {
@@ -82,7 +86,7 @@ function initWindowControls() {
   }
 }
 
-// ─── ROUTE MAP (MODULAR CRUD UPDATED) ────────
+// ─── ROUTE MAP ────────────────────────────────
 const ROUTES = {
   admin: {
     dashboard:  () => import('./views/admin/dashboard.js'),
@@ -165,7 +169,7 @@ export async function navigateTo(page) {
 // ─── SHOW TOAST ──────────────────────────────
 export function showToast(message, type = 'info') {
   const colors = { success: 'bg-green-600', error: 'bg-red-600', warning: 'bg-yellow-600', info: 'bg-studio-accent' };
-  const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+  const icons  = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
 
   const toast = document.createElement('div');
   toast.className = `toast flex items-center gap-3 px-4 py-3 rounded-lg text-white text-sm shadow-xl min-w-64 max-w-sm ${colors[type] || colors.info}`;
@@ -179,8 +183,8 @@ export function showToast(message, type = 'info') {
   messageEl.textContent = message;
 
   const closeBtn = document.createElement('button');
-  closeBtn.type      = 'button';
-  closeBtn.className = 'flex-shrink-0 text-white/60 hover:text-white ml-2';
+  closeBtn.type        = 'button';
+  closeBtn.className   = 'flex-shrink-0 text-white/60 hover:text-white ml-2';
   closeBtn.textContent = '✕';
   closeBtn.addEventListener('click', () => toast.remove());
 
@@ -192,6 +196,7 @@ export function showToast(message, type = 'info') {
   }, 4000);
 }
 
+// ─── AUTO UPDATER ────────────────────────────
 function initAutoUpdater() {
   if (!window.electronAPI?.updater) return;
 
@@ -199,11 +204,7 @@ function initAutoUpdater() {
     if (data.type === 'available') {
       showToast(`Update v${data.version} tersedia, sedang didownload...`, 'info');
     }
-    if (data.type === 'progress') {
-      // opsional: update progress bar
-    }
     if (data.type === 'downloaded') {
-      // Tampilkan toast dengan tombol install
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
       toast.className = 'toast flex items-center gap-3 px-4 py-3 rounded-lg text-white text-sm shadow-xl min-w-64 bg-green-700 pointer-events-all';
@@ -225,13 +226,9 @@ function initAutoUpdater() {
 export function showModal(content) {
   const container = document.getElementById('modal-container');
   if (!container) return;
-
-  // Langsung render content tanpa wrapper tambahan
   container.innerHTML = content;
-
   container.classList.remove('hidden');
   document.body.classList.add('overflow-hidden');
-
   container.addEventListener('click', (event) => {
     if (event.target === container) closeModal();
   }, { once: true });
