@@ -1,0 +1,65 @@
+{
+  "name": "studio-dalang-pelo",
+  "version": "1.0.0",
+  "description": "Sistem Manajemen Tugas & Karyawan WFH untuk Studio Dalang Pelo",
+  "main": "src/main/main.js",
+  "author": "Studio Dalang Pelo",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "css:build": "tailwindcss -i src/renderer/assets/css/tailwind-input.css -o src/renderer/assets/css/local-tailwind.css --minify",
+    "dev": "npm run css:build && cross-env NODE_ENV=development electron .",
+    "build:win": "npm run css:build && electron-builder --win",
+    "build:mac": "npm run css:build && electron-builder --mac",
+    "build:linux": "npm run css:build && electron-builder --linux"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "dotenv": "^16.1.4",
+    "electron-log": "^5.1.0",
+    "electron-updater": "^6.3.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.0",
+    "png-to-ico": "^3.0.1",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.4"
+  },
+  "build": {
+    "appId": "com.studio.dalang-pelo",
+    "productName": "Studio Dalang Pelo",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": ".env",
+        "to": ".env"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "src/renderer/assets/images/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "src/renderer/assets/images/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "src/renderer/assets/images/icon.png"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "Ebbyan21",
+      "repo": "task_manager"
+    }
+  }
+}

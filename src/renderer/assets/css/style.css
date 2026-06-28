@@ -1,0 +1,109 @@
+/* ============================================
+   src/renderer/assets/css/style.css
+   ============================================ */
+
+/* ─── SCROLLBAR CUSTOM ───────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #1A1A2E; }
+::-webkit-scrollbar-thumb { background: #2D2D44; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #7C3AED; }
+
+/* ─── CUSTOM TITLEBAR ────────────────────── */
+.titlebar {
+  -webkit-app-region: drag;
+  user-select: none;
+}
+.window-buttons,
+.window-button {
+  -webkit-app-region: no-drag;
+}
+
+/* Tombol maximize icon berubah saat window dimaksimalkan */
+#window-maximize::before { content: '□'; }
+body.is-maximized #window-maximize::before { content: '❐'; }
+#window-maximize { font-size: 11px; }
+
+/* ─── PROGRESS BARS ─────────────────────── */
+.progress-fill,
+.role-chart-bar { width: 0; }
+.progress-fill { transition: width 0.4s ease; }
+.role-chart-bar { transition: width 0.7s ease; }
+
+/* ─── KANBAN LAYOUT ────────────────────── */
+.kanban-board { min-height: 480px; }
+.kanban-col-cards { max-height: 520px; }
+
+/* ─── TRANSISI HALAMAN ───────────────────── */
+#page-content { animation: fadeIn 0.2s ease; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── KANBAN CARD DRAG ───────────────────── */
+.kanban-card { cursor: grab; transition: all 0.15s ease; }
+.kanban-card:active { cursor: grabbing; opacity: 0.7; transform: rotate(1deg) scale(1.02); }
+.kanban-card.dragging { opacity: 0.4; }
+.kanban-col.drag-over { outline: 2px dashed #7C3AED; outline-offset: -4px; }
+
+/* ─── TOAST ──────────────────────────────── */
+.toast {
+  pointer-events: all;
+  animation: slideIn 0.3s ease forwards;
+}
+.toast.hide { animation: slideOut 0.3s ease forwards; }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideOut {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(100%); }
+}
+
+/* ─── INPUT FOCUS RING ───────────────────── */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #7C3AED;
+}
+
+/* ─── SIDEBAR ACTIVE LINK ────────────────── */
+.nav-link.active {
+  background: linear-gradient(90deg, rgba(124,58,237,0.3) 0%, transparent 100%);
+  border-left: 3px solid #7C3AED;
+  color: #fff;
+}
+
+/* ─── PRIORITY BADGE ─────────────────────── */
+.badge-high     { background:#EF444420; color:#EF4444; border:1px solid #EF444440; }
+.badge-medium   { background:#F59E0B20; color:#F59E0B; border:1px solid #F59E0B40; }
+.badge-low      { background:#10B98120; color:#10B981; border:1px solid #10B98140; }
+
+/* ─── STATUS BADGE ───────────────────────── */
+.badge-todo      { background:#6B728020; color:#9CA3AF; border:1px solid #6B728040; }
+.badge-inprogress{ background:#3B82F620; color:#60A5FA; border:1px solid #3B82F640; }
+.badge-review    { background:#8B5CF620; color:#A78BFA; border:1px solid #8B5CF640; }
+.badge-revision  { background:#F59E0B20; color:#FCD34D; border:1px solid #F59E0B40; }
+.badge-done      { background:#10B98120; color:#34D399; border:1px solid #10B98140; }
+
+/* ─── CARD HOVER ─────────────────────────── */
+.studio-card-hover {
+  transition: border-color 0.2s, transform 0.2s;
+}
+.studio-card-hover:hover {
+  border-color: #7C3AED;
+  transform: translateY(-2px);
+}
+
+/* ─── SKELETON LOADING ───────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #1A1A2E 25%, #2D2D44 50%, #1A1A2E 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+  -webkit-animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

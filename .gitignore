@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables (JANGAN pernah di-commit ke Git!)
+.env
+.env.local
+.env.production
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Electron cache
+.electron/
+.electron-user-data/
+
+# Generated CSS (di-generate saat build)
+src/renderer/assets/css/local-tailwind.css

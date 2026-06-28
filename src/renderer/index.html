@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self' 'unsafe-eval';
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src 'self' https://fonts.gstatic.com;
+             img-src 'self' data: blob: https://*.supabase.co https://lh3.googleusercontent.com;
+             connect-src 'self' https://*.supabase.co wss://*.supabase.co;" />
+
+  <title>Studio Dalang Pelo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+  <link rel="stylesheet" href="./assets/css/local-tailwind.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body class="h-full bg-studio-dark text-studio-text font-sans overflow-hidden">
+
+  <div id="renderer-error"
+    class="hidden fixed inset-0 z-50 bg-black/90 text-white p-6 overflow-auto"></div>
+
+  <!-- CUSTOM TITLEBAR -->
+  <div id="titlebar"
+    class="titlebar fixed top-0 left-0 right-0 h-8 z-50 flex items-center
+           justify-between px-4 bg-studio-card border-b border-studio-border select-none">
+    <div class="flex items-center gap-2">
+      <img id="titlebar-logo" src="./assets/images/icon.png"
+           alt="Studio Dalang Pelo" class="w-4 h-4 object-contain" />
+      <span class="text-xs text-studio-muted font-medium">Studio Dalang Pelo</span>
+    </div>
+    <div class="window-buttons flex gap-1">
+      <button id="window-minimize"
+        class="window-button w-8 h-6 rounded text-studio-muted hover:bg-studio-border
+               hover:text-white text-xs transition-colors">─</button>
+      <button id="window-maximize"
+        class="window-button w-8 h-6 rounded text-studio-muted hover:bg-studio-border
+               hover:text-white text-xs transition-colors">□</button>
+      <button id="window-close"
+        class="window-button w-8 h-6 rounded text-studio-muted hover:bg-red-600
+               hover:text-white text-xs transition-colors">✕</button>
+    </div>
+  </div>
+
+  <!-- APP SHELL -->
+  <div id="app-shell" class="hidden fixed inset-0 top-8 flex">
+    <div id="sidebar-container" class="w-60 flex-shrink-0"></div>
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <div id="navbar-container"></div>
+      <main id="page-content" class="flex-1 overflow-y-auto p-6 bg-studio-dark"></main>
+    </div>
+  </div>
+
+  <!-- AUTH LAYER -->
+  <div id="auth-layer"
+    class="fixed inset-0 top-8 flex items-center justify-center bg-studio-dark z-40">
+  </div>
+
+  <!-- MODAL CONTAINER -->
+  <div id="modal-container"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center
+           bg-black/60 backdrop-blur-sm">
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast-container"
+    class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none">
+  </div>
+
+  <script src="./assets/js/supabase.js"></script>
+  <script type="module" src="./app.js"></script>
+
+</body>
+</html>
